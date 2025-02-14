@@ -19,11 +19,11 @@ const App = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [movieList, setMovieList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchMovies = async () => {
 
-    setIsLoading(true);
+    setIsLoading(false);
     setErrorMessage('');
 
     try{
@@ -54,7 +54,7 @@ const App = () => {
 
     } finally {
 
-      setIsLoading(true);
+      setIsLoading(false);
 
     }
   }
@@ -78,7 +78,7 @@ const App = () => {
         </header>
 
         <section className="all-movies">
-          <h2>All Movies</h2>
+          <h2 className="mt-[40px]">All Movies</h2>
 
           {isLoading? (
             <Spinner />
