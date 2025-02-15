@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Search from "./components/search"
 import Spinner from "./components/Spinner"
 import MovieCard from "./components/MovieCard";
+import { useDebounce } from "react-use";
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -21,6 +22,10 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [debounceSearchTerm, setDebounceTerm] = useState('');
+
+  useDebounce(()=>setDebounceTerm(searchTerm),500,[searchTerm]);
 
   const fetchMovies = async (query = '') => {
 
@@ -64,8 +69,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    fetchMovies(searchTerm);
-  },[searchTerm])
+    fetchMovies(debounceSearchTerm);
+  },[debounceSearchTerm])
   // so every time searchterm change it will change the variable immediately and also change query too 
 
   return (
